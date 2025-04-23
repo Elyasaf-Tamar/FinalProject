@@ -1,0 +1,253 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --primary-color: #1e90ff;
+  --secondary-color: #ffdd57;
+  --background-color: #f5f5f5;
+  --text-color: #333;
+}
+.main {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+  scroll-behavior: smooth;
+}
+.navBar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+  padding: 25px 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: whitesmoke;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+.navBar li {
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.navBar li:hover {
+  text-transform: uppercase;
+  color: var(--secondary-color);
+  font-size: 20px;
+  font-weight: bold;
+}
+.navBar.scrolled {
+  font-size: 0.9rem;
+  padding: 15px 0;
+  background-color: rgb(2, 2, 6);
+  color: rgb(203, 232, 252);
+}
+.SlideShow-continar {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.fade {
+  animation: fadeEffect 9s infinite;
+}
+@keyframes fadeEffect {
+  0%,
+  33% {
+    opacity: 1;
+  }
+  34%,
+  100% {
+    opacity: 0;
+  }
+}
+.slide:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.slide:nth-child(2) {
+  animation-delay: 3s;
+}
+.slide:nth-child(3) {
+  animation-delay: 6s;
+}
+hr {
+  width: 100vw;
+  height: 10px;
+  border: none;
+  margin-bottom: 10px;
+  margin-top: 1px;
+  background-color: black;
+}
+table {
+  width: 100%;
+}
+.ovr {
+  overflow-x: auto;
+}
+.container-serch_bar {
+  width: 60%;
+  margin: 30px auto;
+  border-radius: 10px;
+  background-color: gray; 
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+.header-bar h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+.options-bar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 15px;
+}
+.option select {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: white;
+  color: #333;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+}
+.option select:focus {
+  border: 2px solid #ffdd57;
+}
+@media (max-width: 768px) {
+  .options-bar {
+      flex-direction: column;
+  }
+
+  .option select {
+      width: 80%;
+  }
+}
+.card {
+  width: 250px;
+  height: 400px;
+  margin: 20px;
+  perspective: 1000px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.card-inner {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+  height: 100%;
+  width: 100%;
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+.card-front {
+  display: flex;
+  justify-content: flex-end; 
+  align-items: flex-end;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.card-front img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  z-index: -1;
+}
+
+.card-back {
+  background-color: white;
+  color: black;
+  transform: rotateY(180deg);
+  display: flex;
+  position: relative;
+  padding: 20px;
+  text-align: right;
+  flex-direction: column;
+  justify-content: flex-start; /* מיישר מהתחלה */
+}
+
+.card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-content h2 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.card-content h3 {
+  font-size: 1.1rem;
+  font-weight: normal;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.card-content p {
+  font-size: 0.9rem;
+  margin: 5px 0;
+  line-height: 1.4;
+  color: #333;
+}
+
+.card-content p strong {
+  color: #000;
+}
+
+.card-link {
+  display: inline-block;
+  margin-top: 15px;
+  color: #e63946;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.card-link:hover {
+  color: #ff5733; /* אפקט הובר */
+}
+.movie-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; 
+  gap: 10px; 
+}

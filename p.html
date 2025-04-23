@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="p.css">
+        <title>cinema</title>
+    </head>
+    <body class="main">
+            <ul class="navBar" id ="navBar">
+            <li>Home</li>
+            <li>Search movies</li>
+            <li>All movies</li>
+            <li><a href="BuyATicket.html">Order a ticket</a></li>
+            <li><a href="register.html">Login</a></li>
+        </ul>
+        <div class="SlideShow-continar">    
+            <div class="slide fade">
+                <img src="assest/arcane.png" alt="flyer">
+            </div>
+            <div class="slide fade">
+                <img src="assest/KRAVEN_CC-BANNER_2000X832.jpg" alt="flyer">
+            </div>
+            <div class="slide fade">
+                <img src="assest/פו הדב באנר אתר.jpg" alt="flyer">
+            </div>
+        </div>
+        <hr>
+        <div class ="ovr">
+            <div class="container-serch_bar">
+                <div class="header-bar">
+                    <h2>הזמן כרטיסים</h2>
+                </div>
+                <div class="options-bar">
+                    <div class="option">
+                        <select name="movie" id="movie">
+                            <option value="" disabled selected>בחר סרט</option>
+                            <option value="scary">Scary Movie</option>
+                            <option value="funny">Funny Movie</option>
+                            <option value="idk">IDK Movie</option>
+                        </select>
+                    </div>
+                    <div class="option">
+                        <select name="time" id="time">
+                            <option value="" disabled selected>בחר שעה</option>
+                            <option value="10:00">10:00</option>
+                            <option value="12:00">12:00</option>
+                            <option value="15:00">15:00</option>
+                        </select>
+                    </div>
+                    <div class="option">
+                        <select name="cinema" id="cinema">
+                            <option value="" disabled selected>בחר קולנוע</option>
+                            <option value="telaviv">תל אביב</option>
+                            <option value="jerusalem">ירושלים</option>
+                            <option value="haifa">חיפה</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="movies-container"></div>
+
+            <script src="p.js"></script>
+        </body>
+        </html>

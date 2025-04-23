@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="BuyATicket.css">
+    <title>BuyATicket</title>
+</head>
+<body> 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="BuyATicket.css">
+        <title>BuyATicket</title>
+    </head>
+    <body> 
+        <div class="container">
+            <h1>Buying movie tickets</h1>
+            <form id="ticketForm">
+                <label for="ticketType">ticketType:</label>
+                <select id="ticketType">
+                    <option value="regular">regular</option>
+                    <option value="vip">VIP</option>
+                    <option value="3d">3D</option>
+                </select><br><br>
+    
+                <label for="quantity">the amount of tickets:</label>
+                <input type="number" id="quantity" min="1" value="1"><br><br>
+    
+                <div id="discountsContainer"></div>
+                 <br>
+                <button type="submit">קנה כרטיסים</button>
+            </form>
+             <br>
+            <div id="totalPrice"></div>
+        </div>
+</body>
+<script src="BuyATicket.js"></script>
+</html>
