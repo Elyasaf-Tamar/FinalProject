@@ -62,7 +62,7 @@ async function handleGoogleSignIn(e) {
     );
 
     // Redirect to home page
-    window.location.href = "p.html";
+      window.location.href = "p.html";
   } catch (error) {
     console.error("Error during Google sign in:", error);
     alert("Failed to sign in with Google. Please try again.");
