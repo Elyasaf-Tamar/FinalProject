@@ -40,16 +40,6 @@ console.log("Data Inserted Failed");
 
     });
 }
-insertbtn.addEventListener("click", insertData);
-function deleteData() {
-    remove(ref(database, 'users/' + name.value)).then(() => {
-        console.log("Data Deleted Successfully");
-        alert("Data Deleted Successfully")
-    }).catch((error) => {
-        console.log("Data Deleted Failed");
-        alert("Data Deleted Failed")
-    });
-}
-deletebtn.addEventListener("click", deleteData);
+
 
 
