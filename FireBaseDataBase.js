@@ -54,9 +54,31 @@ function selectdata() {
             console.log("No data available");
         }
     }).catch((error) => {
-        console.error(error);
+        console.error("did not work");
     });
 }
-
+function updatedata() {
+    update(ref(database, 'users/' + name.value), {
+        name: name.value,
+        email: email.value,
+        password: password.value
+    }).then(() => {
+        alert("Data Updated Successfully")
+    }).catch((error) => {
+        console.error("Data Updated Failed");
+    }
+    );
+}
+function deletedata() {
+    remove(ref(database, 'users/' + name.value)).then(() => {
+        alert("Data Deleted Successfully")
+    }).catch((error) => {
+        console.error("Data Deleted Failed");
+    });
+}
+insertbtn.addEventListener("click", insertData);
+selectbtn.addEventListener("click", selectdata);
+updatebtn.addEventListener("click", updatedata);
+deletebtn.addEventListener("click", deletedata);
 
 
