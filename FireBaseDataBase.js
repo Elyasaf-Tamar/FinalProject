@@ -38,6 +38,23 @@ alert("Data Inserted Successfully")
 alert("Data Inserted Failed")
 console.log("Data Inserted Failed");
 
+
+    });
+}
+function selectdata() {
+    const dbRef = ref(database);
+    get(child(dbRef, "users/" + name.value)).then((snapshot) => {
+        if (snapshot.exists()) {
+            console.log(snapshot.val());
+            alert("Data Selected Successfully")
+            name.value = snapshot.val().name;
+            email.value = snapshot.val().email;
+            password.value = snapshot.val().password;
+        } else {
+            console.log("No data available");
+        }
+    }).catch((error) => {
+        console.error(error);
     });
 }
 
