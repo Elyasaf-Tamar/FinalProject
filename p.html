@@ -29,43 +29,23 @@
     <li><a href="register.html">Login</a></li>
 </ul>
 
-
-        <!-- Slideshow section -->
+        <!-- lideshow section -->
         <div class="slideshow-wrapper">
             <div id="movies-slideshow"></div>
         </div>
+
         <hr>
+
         <!-- Order tickets section -->
         <div class="ovr">
             <div class="container-serch_bar">
-                <div class="header-bar">
-                    <h2>הזמן כרטיסים</h2>
-                </div>
                 <div class="options-bar">
-                    <div class="option">
-                        <select name="movie" id="movie">
-                            <option value="" disabled selected>בחר סרט</option>
-                            <option value="scary">Scary Movie</option>
-                            <option value="funny">Funny Movie</option>
-                            <option value="idk">IDK Movie</option>
-                        </select>
-                    </div>
-                    <div class="option">
-                        <select name="time" id="time">
-                            <option value="" disabled selected>בחר שעה</option>
-                            <option value="10:00">10:00</option>
-                            <option value="12:00">12:00</option>
-                            <option value="15:00">15:00</option>
-                        </select>
-                    </div>
-                    <div class="option">
-                        <select name="cinema" id="cinema">
-                            <option value="" disabled selected>בחר קולנוע</option>
-                            <option value="telaviv">תל אביב</option>
-                            <option value="jerusalem">ירושלים</option>
-                            <option value="haifa">חיפה</option>
-                        </select>
-                    </div>
+                    <form id="genre-form">
+                        <h3>Choose your genre/s:</h3>
+                        <div id="genre-checkboxes" class="genres-container"></div>
+                        <button type="submit">Save your preference</button>
+                      </form>                      
+                  </div>                    
                 </div>
             </div>
             

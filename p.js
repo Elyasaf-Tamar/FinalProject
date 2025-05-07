@@ -188,3 +188,146 @@ function startSlideshow(slides) {
     slides[current].style.opacity = "1";
   }, 4000); // Increased to 4 seconds per slide for better readability
 }
+document.getElementById("genre-form").addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const selectedGenres = Array.from(document.querySelectorAll('input[name="genre"]:checked'))
+    .map(el => el.value);
+
+  const userId = "user123"; // בעתיד תחליף את זה למזהה אמיתי
+
+  const res = await fetch(`http://localhost:3000/preferences/${userId}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ genres: selectedGenres })
+  });
+
+  const data = await res.json();
+  alert(data.message);
+});
+const GENRE_API_URL = "https://api.themoviedb.org/3/genre/movie/list?language=en&api_key=70852a6662a3cc3876a7e3722d14d804";
+const userId = "user123"; // בהמשך תוכל לשים מזהה אמיתי מההרשמה
+
+async function loadGenresAndPreferences() {
+  const res = await fetch(GENRE_API_URL);
+  const genreData = await res.json();
+
+  // הבא את ההעדפות שכבר שמורות ל־user הזה
+  const savedPrefsRes = await fetch(`http://localhost:3000/preferences/${userId}`);
+  const savedGenres = await savedPrefsRes.json(); // array of genre IDs
+
+  const checkboxContainer = document.getElementById("genre-checkboxes");
+  checkboxContainer.innerHTML = "";
+
+  genreData.genres.forEach((genre) => {
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.name = "genre";
+    checkbox.value = genre.id;
+
+    // סמן אם כבר שמור למשתמש
+    if (savedGenres.includes(genre.id)) {
+      checkbox.checked = true;
+    }
+
+    const label = document.createElement("label");
+    label.appendChild(checkbox);
+    label.appendChild(document.createTextNode(` ${genre.name}`));
+    checkboxContainer.appendChild(label);
+    checkboxContainer.appendChild(document.createElement("br"));
+  });
+}
+
+// שלח את הבחירה לשרת
+document.getElementById("genre-form").addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const selectedGenres = Array.from(document.querySelectorAll('input[name="genre"]:checked'))
+    .map(el => Number(el.value)); // וודא שהמספרים נשארים מספרים
+
+  await fetch(`http://localhost:3000/preferences/${userId}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ genres: selectedGenres })
+  });
+
+  alert("ההעדפות נשמרו בהצלחה!");
+});
+// טען ז'אנרים והעדפות שמורות
+async function loadGenresAndPreferences() {
+  try {
+    const res = await fetch(GENRE_API_URL);
+    const genreData = await res.json();
+
+    const savedPrefsRes = await fetch(`http://localhost:3000/preferences/${userId}`);
+    const savedGenres = await savedPrefsRes.json();
+
+    createGenreCheckboxes(genreData.genres, savedGenres);
+  } catch (err) {
+    console.error("Error loading genres or preferences:", err);
+  }
+}
+
+// צור צ'קבוקסים + פיצול ל-3 עמודות
+function createGenreCheckboxes(genres, savedGenres = []) {
+  const container = document.getElementById("genre-checkboxes");
+  container.innerHTML = "";
+
+  const chunkSize = Math.ceil(genres.length / 3);
+  for (let i = 0; i < 3; i++) {
+    const row = document.createElement("div");
+    row.classList.add("genre-column");
+
+    const chunk = genres.slice(i * chunkSize, (i + 1) * chunkSize);
+    chunk.forEach(genre => {
+      const label = document.createElement("label");
+      label.style.display = "block";
+      label.style.marginBottom = "6px";
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.name = "genre";
+      checkbox.value = genre.id;
+
+      if (savedGenres.includes(genre.id)) {
+        checkbox.checked = true;
+      }
+
+      label.appendChild(checkbox);
+      label.append(" " + genre.name);
+      row.appendChild(label);
+    });
+
+    container.appendChild(row);
+  }
+}
+
+// שלח העדפות לשרת
+document.getElementById("genre-form").addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const selectedGenres = Array.from(
+    document.querySelectorAll('input[name="genre"]:checked')
+  ).map(el => Number(el.value));
+
+  try {
+    const res = await fetch(`http://localhost:3000/preferences/${userId}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ genres: selectedGenres })
+    });
+
+    const data = await res.json();
+    alert(data.message || "Preferences saved successfully!");
+  } catch (err) {
+    console.error("Error saving preferences:", err);
+    alert("Error saving preferences");
+  }
+});
+
+// טען בהתחלה
+window.addEventListener("DOMContentLoaded", loadGenresAndPreferences);
