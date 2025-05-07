@@ -97,7 +97,9 @@ function showMovies(movies) {
 }
 
 function createMovieCard(movie) {
-  const { title, poster_path, vote_average, overview, release_date } = movie;
+  const { title, poster_path, vote_average, overview, release_date, genre_ids } = movie;
+
+  const genres = genre_ids.map(id => genreMap[id]).filter(Boolean).join(", ");
 
   const movieEl = document.createElement("div");
   movieEl.classList.add("movie", "card"); // הוספתי את class="card"
