@@ -4,6 +4,26 @@ const BASE_URL = "https://api.themoviedb.org/3";
 const API_URL = BASE_URL + "/discover/movie?sort_by=popularity.desc&" + API_KEY;
 const IMG_URL = "https://image.tmdb.org/t/p/w500";
 
+let genreMap = {};
+
+async function loadGenres() {
+  const res = await fetch(`${BASE_URL}/genre/movie/list?${API_KEY}&language=en-US`);
+  const data = await res.json();
+  data.genres.forEach(genre => {
+    genreMap[genre.id] = genre.name;
+  });
+}
+
+
+window.onload = async function () {
+  await loadGenres(); // ודא שז'אנרים נטענו קודם
+  await getMovies(API_URL); // ואז טען סרטים לכרטיסים
+  const res = await fetch(API_URL); // טען שוב לסליידר
+  const data = await res.json();
+  createSlideshow(data.results);
+};
+
+
 // DOM Elements
 const navbar = document.getElementById("navBar");
 const moviesContainer = document.getElementById("movies-container");
@@ -44,22 +64,7 @@ if (submitButton) {
   };
 }
 
-// Load user data on page load
-window.onload = function () {
-  //   const userData = ["userName", "password", "phoneNumber"].map((key) => ({
-  //     key,
-  //     value: localStorage.getItem(key),
-  //   }));
 
-  //   if (userData.every((item) => item.value)) {
-  //     userData.forEach((item) => console.log(`${item.key}: ${item.value}`));
-  //   } else {
-  //     console.log("No data found in Local Storage.");
-  //   }
-
-  // Fetch movies on page load
-  getMovies(API_URL);
-};
 
 // Navigation function
 function goToHome() {
@@ -95,34 +100,33 @@ function showMovies(movies) {
     moviesContainer.appendChild(row);
   }
 }
-
 function createMovieCard(movie) {
   const { title, poster_path, vote_average, overview, release_date, genre_ids } = movie;
 
   const genres = genre_ids.map(id => genreMap[id]).filter(Boolean).join(", ");
 
   const movieEl = document.createElement("div");
-  movieEl.classList.add("movie", "card"); // הוספתי את class="card"
+  movieEl.classList.add("movie", "card");
 
   movieEl.innerHTML = `
-      <div class="card-inner">
-        <div class="card-front">
-          <img src="${
-            poster_path ? IMG_URL + poster_path : "placeholder.jpg"
-          }" alt="${title}">
-        </div>
-        <div class="card-back">
-          <div class="card-content">
-            <h2 class="card-title">${title}</h2>
-            <p>${overview}</p>
-            <p><strong>דירוג צופים:</strong> ${vote_average}</p>
-            <p><strong>תאריך בכורה:</strong> ${release_date}</p>
-          </div>
+    <div class="card-inner">
+      <div class="card-front">
+        <img src="${poster_path ? IMG_URL + poster_path : "placeholder.jpg"}" alt="${title}">
+      </div>
+      <div class="card-back">
+        <div class="card-content">
+          <h2 class="card-title">${title}</h2>
+          <p>${overview}</p>
+          <p><strong>Rating:</strong> ${vote_average}</p>
+          <p><strong>Release Date:</strong> ${release_date}</p>
+          <p><strong>Genres:</strong> ${genres}</p>
         </div>
       </div>
-    `;
+    </div>
+  `;
+  movieEl.querySelector(".card-back").style.direction = "ltr";
+  movieEl.querySelector(".card-back").style.textAlign = "left";
 
-  // אירוע שמסובב את הכרטיס
   movieEl.addEventListener("click", () => {
     const inner = movieEl.querySelector(".card-inner");
     inner.classList.toggle("flipped");
@@ -131,13 +135,11 @@ function createMovieCard(movie) {
   return movieEl;
 }
 
+
+
 const slideshowContainer = document.getElementById("movies-slideshow");
 
-fetch(API_URL)
-  .then((res) => res.json())
-  .then((data) => {
-    createSlideshow(data.results);
-  });
+
 
 function createSlideshow(movies) {
   const container = document.createElement("div");
