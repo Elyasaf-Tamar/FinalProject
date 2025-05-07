@@ -38,18 +38,25 @@ alert("Data Inserted Successfully")
 alert("Data Inserted Failed")
 console.log("Data Inserted Failed");
 
+
     });
 }
-insertbtn.addEventListener("click", insertData);
-function deleteData() {
-    remove(ref(database, 'users/' + name.value)).then(() => {
-        console.log("Data Deleted Successfully");
-        alert("Data Deleted Successfully")
+function selectdata() {
+    const dbRef = ref(database);
+    get(child(dbRef, "users/" + name.value)).then((snapshot) => {
+        if (snapshot.exists()) {
+            console.log(snapshot.val());
+            alert("Data Selected Successfully")
+            name.value = snapshot.val().name;
+            email.value = snapshot.val().email;
+            password.value = snapshot.val().password;
+        } else {
+            console.log("No data available");
+        }
     }).catch((error) => {
-        console.log("Data Deleted Failed");
-        alert("Data Deleted Failed")
+        console.error(error);
     });
 }
-deletebtn.addEventListener("click", deleteData);
+
 
 
