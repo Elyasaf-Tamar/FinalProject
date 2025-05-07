@@ -3,6 +3,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  overflow-x: hidden;
+}
 :root {
   --primary-color: #1e90ff;
   --secondary-color: #ffdd57;
@@ -321,7 +324,7 @@ table {
 }
 .movie-row {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
 }
